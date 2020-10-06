@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import random
 import urllib.request
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from http.client import RemoteDisconnected
 
 dataset = Path('news2016.json').read_text().splitlines()
@@ -20,6 +20,8 @@ def download(document):
         return "Downloaded"
     except HTTPError:
         return "Bad URL"
+    except URLError:
+        return "URL error"
     except RemoteDisconnected:
         "Remote end closed connection without response"
     except UnicodeDecodeError:
